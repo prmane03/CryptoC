@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CryptoC</title>
-	<link rel="icon" type="image/x-icon" href="./img/QrCode.png">
+	<link rel="icon" type="image/x-icon" href="">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
@@ -24,11 +24,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"/>
 
-    <link
-      rel="stylesheet"
-      media="screen"
-      href="https://fontlibrary.org//face/waltograph-disney"
-      type="text/css"/>
+    
     <script>
       tailwind.config = {
         theme: {
@@ -61,7 +57,7 @@
       <div
         class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="#" class="flex">
-          <img src="./img/QrCode.png" alt="logo" class="h-6 w-auto mr-2">
+          <img src="" alt="logo" class="h-6 w-auto mr-2">
           <span
             class="self-center text-lg font-semibold whitespace-nowrap dark:text-white">CryptoC</span>
         </a>
@@ -127,8 +123,10 @@
     <!-- Container -->
     <div class="container mx-auto">
       <!-- ROW  -->
-      <div class="tabcontent  flex justify-center px-6 my-12" id="allCrypto">
+      <p class="text-right text-xs text-gray-400 mt-12 mb-2">Last Updated At : <span id="updatedAt"></span></p>
+      <div class="tabcontent  flex justify-center px-6 mb-12" id="allCrypto">
         <div class="container">
+          
           <ul class="w-full" id="allList"></ul>
         </div> 
       </div>
@@ -150,17 +148,23 @@
     </div>
     <script>
       
-      async function data() {
+      async function getData() {
             try {
                 let res = await fetch("https://api.coincap.io/v2/assets");
                 var result = await res.json();
                
-                console.log(result)
-                console.log("sorted")
+               
                 data = result["data"]
                 var allLi = document.getElementById("allList")
                 var gainerLi = document.getElementById("gainerList")
                 var loserLi = document.getElementById("loserList")
+                var updatedAt = document.getElementById("updatedAt");
+
+                var date = new Date(result['timestamp'])
+                updatedAt.innerHTML= ""
+                updatedAt.innerHTML = date
+
+
                 allLi.innerHTML = ""
                 for(let i=0;i<15;i++){
                   let opt = document.createElement("li"); 
@@ -193,13 +197,14 @@
                   loserLi.appendChild(opt)
                 }
                 
-                console.log(result["data"])
                 
             }catch (error) {    
                 console.log(error);
             }
         }
-        data() 
+        setInterval(()=>{
+          getData()
+        },1000)
     </script>
     <script src="index.js"></script>
   </body>
