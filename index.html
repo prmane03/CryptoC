@@ -126,21 +126,43 @@
       <p class="text-right text-xs text-gray-400 mt-12 mb-2">Last Updated At : <span id="updatedAt"></span></p>
       <div class="tabcontent  flex justify-center px-6 mb-12" id="allCrypto">
         <div class="container">
-          
-          <ul class="w-full" id="allList"></ul>
+          <table class="w-full">
+            <thead>
+              <th>Crypto</th>
+              <th>Price USD</th>
+              <th>Change % (24hr)</th>
+            </thead>
+            <tbody id="allList">
+
+            </tbody>
+          </table>
         </div> 
       </div>
-        <div class="tabcontent hidden flex justify-center px-6 my-12" id="gainerCrypto">
+        <div class="tabcontent hidden flex justify-center px-6 mb-12" id="gainerCrypto">
           <div class="container">
-            <ul class="w-full" id="gainerList"></ul>
+            <table>
+              <thead>
+  
+              </thead>
+              <tbody id="gainerList">
+  
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="tabcontent hidden flex justify-center px-6 my-12" id="loserCrypto">
+        <div class="tabcontent hidden flex justify-center px-6 mb-12" id="loserCrypto">
           <div class="container">
-            <ul class="w-full" id="loserList"></ul>
+            <table>
+              <thead>
+  
+              </thead>
+              <tbody id="loserList">
+  
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="tabcontent hidden flex justify-center px-6 my-12" id="about">
+        <div class="tabcontent hidden flex justify-center px-6 mb-12" id="about">
             
         </div>
         
@@ -150,27 +172,44 @@
       
       async function getData() {
             try {
-                let res = await fetch("https://api.coincap.io/v2/assets");
-                var result = await res.json();
-               
-               
-                data = result["data"]
-                var allLi = document.getElementById("allList")
+              
+              var allLi = document.getElementById("allList")
                 var gainerLi = document.getElementById("gainerList")
                 var loserLi = document.getElementById("loserList")
                 var updatedAt = document.getElementById("updatedAt");
+                var date=""
+                let res = await fetch("https://api.coincap.io/v2/assets");
+                var result = await res.json();
+               
+               console.log(result)
+                data = result["data"]
+               
 
-                var date = new Date(result['timestamp'])
+                date = new Date(result['timestamp'])
                 updatedAt.innerHTML= ""
                 updatedAt.innerHTML = date
 
 
                 allLi.innerHTML = ""
                 for(let i=0;i<15;i++){
-                  let opt = document.createElement("li"); 
-                  opt.classList.add("p-2","shadow-lg","flex" ,"justify-between")
-                  opt.innerHTML = "<p class='font-bold text-yellow-600'>"+data[i].name +"</p> <p class='text-blue-500'> $ "+parseInt(data[i].priceUsd).toFixed(2)+"</p>  <p >chng% "+parseInt(data[i].changePercent24Hr).toFixed(2)+"</p>"
-                  allLi.appendChild(opt)
+                  let td1 = document.createElement("td");
+                  td1.classList.add("p-2","font-bold","text-blue-500")
+                  td1.innerHTML= data[i].name
+                  
+                  let td2 = document.createElement("td");
+                  td2.classList.add("p-2","font-bold")
+                  td2.innerHTML= parseInt(data[i].priceUsd).toFixed(4)
+
+                  let td3 = document.createElement("td");
+                  td3.classList.add("p-2","font-bold","text-blue-500")
+                  td3.innerHTML= parseInt(data[i].changePercent24Hr).toFixed(2)
+
+                  let tr = document.createElement("tr");
+
+                  tr.appendChild(td1)
+                  tr.appendChild(td2)
+                  tr.appendChild(td3)
+                  allLi.appendChild(tr)
                 }
 
                 data.sort((a, b) => {
@@ -179,10 +218,24 @@
 
                 gainerLi.innerHTML = ""
                 for(let i=0;i<15;i++){
-                  let opt = document.createElement("li");
-                  opt.classList.add("p-2","shadow-lg","flex" ,"justify-between")
-                  opt.innerHTML = "<p class='font-bold text-yellow-600'>"+data[i].name +"</p> <p class='text-blue-500'> $ "+parseInt(data[i].priceUsd).toFixed(2)+"</p>  <p >chng% "+parseInt(data[i].changePercent24Hr).toFixed(2)+"</p>"
-                  gainerLi.appendChild(opt)
+                  let td1 = document.createElement("td");
+                  td1.classList.add("p-2","font-bold","text-blue-500")
+                  td1.innerHTML= data[i].name
+                  
+                  let td2 = document.createElement("td");
+                  td2.classList.add("p-2","font-bold")
+                  td2.innerHTML= parseInt(data[i].priceUsd).toFixed(4)
+
+                  let td3 = document.createElement("td");
+                  td3.classList.add("p-2","font-bold","text-blue-500")
+                  td3.innerHTML= parseInt(data[i].changePercent24Hr).toFixed(2)
+
+                  let tr = document.createElement("tr");
+
+                  tr.appendChild(td1)
+                  tr.appendChild(td2)
+                  tr.appendChild(td3)
+                  gainerLi.appendChild(tr)
                 }
 
                 data.sort((a, b) => {
@@ -191,20 +244,36 @@
 
                 loserLi.innerHTML = ""
                 for(let i=0;i<15;i++){
-                  let opt = document.createElement("li");
-                  opt.classList.add("p-2","shadow-lg","flex" ,"justify-between")
-                  opt.innerHTML = "<p class='font-bold text-yellow-600'>"+data[i].name +"</p> <p class='text-blue-500'> $ "+parseInt(data[i].priceUsd).toFixed(2)+"</p>  <p >chng% "+parseInt(data[i].changePercent24Hr).toFixed(2)+"</p>"
-                  loserLi.appendChild(opt)
+                  let td1 = document.createElement("td");
+                  td1.classList.add("p-2","font-bold","text-blue-500")
+                  td1.innerHTML= data[i].name
+                  
+                  let td2 = document.createElement("td");
+                  td2.classList.add("p-2","font-bold")
+                  td2.innerHTML= parseInt(data[i].priceUsd).toFixed(4)
+
+                  let td3 = document.createElement("td");
+                  td3.classList.add("p-2","font-bold","text-blue-500")
+                  td3.innerHTML= parseInt(data[i].changePercent24Hr).toFixed(2)
+
+                  let tr = document.createElement("tr");
+
+                  tr.appendChild(td1)
+                  tr.appendChild(td2)
+                  tr.appendChild(td3)
+                  loserLi.appendChild(tr)
                 }
                 
                 
-            }catch (error) {    
+            }catch (error) {  
+                updatedAt.innerHTML= ""
+                updatedAt.innerHTML = "<div><p>"+date+"</p><p class='text-red-500'>"+error+"</p></div>" 
                 console.log(error);
             }
         }
         setInterval(()=>{
           getData()
-        },1000)
+        },5000)
     </script>
     <script src="index.js"></script>
   </body>
