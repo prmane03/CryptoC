@@ -53,7 +53,7 @@
     </h2> -->
 
     <nav
-      class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+      class="bg-gray-200 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
       <div
         class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="#" class="flex">
@@ -123,14 +123,16 @@
     <!-- Container -->
     <div class="container mx-auto">
       <!-- ROW  -->
-      <p class="text-right text-xs text-gray-400 mt-12 mb-2">Last Updated At : <span id="updatedAt"></span></p>
+      <p class="text-left text-xs text-gray-400 mt-4 mb-2 mx-6">Last Updated At : <span id="updatedAt"></span></p>
       <div class="tabcontent  flex justify-center px-6 mb-12" id="allCrypto">
         <div class="container">
           <table class="w-full">
-            <thead>
-              <th>Crypto</th>
-              <th>Price USD</th>
-              <th>Change % (24hr)</th>
+            <thead class="text-left text-white bg-green-500">
+              <tr class="">
+                <th class="p-2">Crypto</th>
+                <th class="p-2">Price USD</th>
+                <th class="p-2">Change % (24hr)</th>
+              </tr>
             </thead>
             <tbody id="allList">
 
@@ -140,9 +142,13 @@
       </div>
         <div class="tabcontent hidden flex justify-center px-6 mb-12" id="gainerCrypto">
           <div class="container">
-            <table>
-              <thead>
-  
+            <table class="w-full">
+              <thead class="text-left text-white bg-green-500">
+                <tr class="">
+                  <th class="p-2">Crypto</th>
+                  <th class="p-2">Price USD</th>
+                  <th class="p-2">Change % (24hr)</th>
+                </tr>
               </thead>
               <tbody id="gainerList">
   
@@ -152,9 +158,13 @@
         </div>
         <div class="tabcontent hidden flex justify-center px-6 mb-12" id="loserCrypto">
           <div class="container">
-            <table>
-              <thead>
-  
+            <table class="w-full">
+              <thead class="text-left text-white bg-green-500">
+                <tr class="">
+                  <th class="p-2">Crypto</th>
+                  <th class="p-2">Price USD</th>
+                  <th class="p-2">Change % (24hr)</th>
+                </tr>
               </thead>
               <tbody id="loserList">
   
@@ -165,116 +175,7 @@
         <div class="tabcontent hidden flex justify-center px-6 mb-12" id="about">
             
         </div>
-        
-        
     </div>
-    <script>
-      
-      async function getData() {
-            try {
-              
-              var allLi = document.getElementById("allList")
-                var gainerLi = document.getElementById("gainerList")
-                var loserLi = document.getElementById("loserList")
-                var updatedAt = document.getElementById("updatedAt");
-                var date=""
-                let res = await fetch("https://api.coincap.io/v2/assets");
-                var result = await res.json();
-               
-               console.log(result)
-                data = result["data"]
-               
-
-                date = new Date(result['timestamp'])
-                updatedAt.innerHTML= ""
-                updatedAt.innerHTML = date
-
-
-                allLi.innerHTML = ""
-                for(let i=0;i<15;i++){
-                  let td1 = document.createElement("td");
-                  td1.classList.add("p-2","font-bold","text-blue-500")
-                  td1.innerHTML= data[i].name
-                  
-                  let td2 = document.createElement("td");
-                  td2.classList.add("p-2","font-bold")
-                  td2.innerHTML= parseInt(data[i].priceUsd).toFixed(4)
-
-                  let td3 = document.createElement("td");
-                  td3.classList.add("p-2","font-bold","text-blue-500")
-                  td3.innerHTML= parseInt(data[i].changePercent24Hr).toFixed(2)
-
-                  let tr = document.createElement("tr");
-
-                  tr.appendChild(td1)
-                  tr.appendChild(td2)
-                  tr.appendChild(td3)
-                  allLi.appendChild(tr)
-                }
-
-                data.sort((a, b) => {
-                  return b.changePercent24Hr - a.changePercent24Hr; // descending
-                })
-
-                gainerLi.innerHTML = ""
-                for(let i=0;i<15;i++){
-                  let td1 = document.createElement("td");
-                  td1.classList.add("p-2","font-bold","text-blue-500")
-                  td1.innerHTML= data[i].name
-                  
-                  let td2 = document.createElement("td");
-                  td2.classList.add("p-2","font-bold")
-                  td2.innerHTML= parseInt(data[i].priceUsd).toFixed(4)
-
-                  let td3 = document.createElement("td");
-                  td3.classList.add("p-2","font-bold","text-blue-500")
-                  td3.innerHTML= parseInt(data[i].changePercent24Hr).toFixed(2)
-
-                  let tr = document.createElement("tr");
-
-                  tr.appendChild(td1)
-                  tr.appendChild(td2)
-                  tr.appendChild(td3)
-                  gainerLi.appendChild(tr)
-                }
-
-                data.sort((a, b) => {
-                  return a.changePercent24Hr - b.changePercent24Hr; // descending
-                })
-
-                loserLi.innerHTML = ""
-                for(let i=0;i<15;i++){
-                  let td1 = document.createElement("td");
-                  td1.classList.add("p-2","font-bold","text-blue-500")
-                  td1.innerHTML= data[i].name
-                  
-                  let td2 = document.createElement("td");
-                  td2.classList.add("p-2","font-bold")
-                  td2.innerHTML= parseInt(data[i].priceUsd).toFixed(4)
-
-                  let td3 = document.createElement("td");
-                  td3.classList.add("p-2","font-bold","text-blue-500")
-                  td3.innerHTML= parseInt(data[i].changePercent24Hr).toFixed(2)
-
-                  let tr = document.createElement("tr");
-
-                  tr.appendChild(td1)
-                  tr.appendChild(td2)
-                  tr.appendChild(td3)
-                  loserLi.appendChild(tr)
-                }
-                
-                
-            }catch (error) {  
-                updatedAt.innerHTML= ""
-                updatedAt.innerHTML = "<div><p>"+date+"</p><p class='text-red-500'>"+error+"</p></div>" 
-                console.log(error);
-            }
-        }
-        setInterval(()=>{
-          getData()
-        },5000)
-    </script>
     <script src="index.js"></script>
   </body>
 </html>
