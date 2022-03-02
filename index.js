@@ -45,19 +45,19 @@ async function getData() {
 
       let td2 = document.createElement("td");
       td2.classList.add("p-2", "font-bold");
-      td2.innerHTML = "$ " + data[i].priceUsd;
+      td2.innerHTML = "$ " + parseFloat(data[i].priceUsd).toFixed(2);
 
       let td3 = document.createElement("td");
-      if (parseInt(data[i].changePercent24Hr) < 0) {
+      if (parseFloat(data[i].changePercent24Hr) < 0) {
         td3.classList.add("p-2", "font-bold", "text-red-500");
         td3.innerHTML =
           '<i class="fa-solid fa-arrow-down animate-bounce"></i> ' +
-          Math.abs(data[i].changePercent24Hr).toFixed(2);
+          Math.abs(parseFloat(data[i].changePercent24Hr).toFixed(2));
       } else {
         td3.classList.add("p-2", "font-bold", "text-green-500");
         td3.innerHTML =
           '<i class="fa-solid fa-arrow-up animate-bounce"></i> ' +
-          Math.abs(data[i].changePercent24Hr).toFixed(2);
+          Math.abs(parseFloat(data[i].changePercent24Hr).toFixed(2));
       }
 
       let tr = document.createElement("tr");
@@ -85,19 +85,19 @@ async function getData() {
 
       let td2 = document.createElement("td");
       td2.classList.add("p-2", "font-bold");
-      td2.innerHTML = parseInt(data[i].priceUsd).toFixed(2);
+      td2.innerHTML = parseFloat(data[i].priceUsd).toFixed(2);
 
       let td3 = document.createElement("td");
-      if (parseInt(data[i].changePercent24Hr) < 0) {
+      if (parseFloat(data[i].changePercent24Hr) < 0) {
         td3.classList.add("p-2", "font-bold", "text-red-500");
         td3.innerHTML =
           '<i class="fa-solid fa-arrow-down animate-bounce"></i> ' +
-          Math.abs(parseInt(data[i].changePercent24Hr)).toFixed(2);
+          Math.abs(parseFloat(data[i].changePercent24Hr)).toFixed(2);
       } else {
         td3.classList.add("p-2", "font-bold", "text-green-500");
         td3.innerHTML =
           '<i class="fa-solid fa-arrow-up animate-bounce"></i> ' +
-          Math.abs(parseInt(data[i].changePercent24Hr)).toFixed(2);
+          Math.abs(parseFloat(data[i].changePercent24Hr)).toFixed(2);
       }
 
       let tr = document.createElement("tr");
@@ -125,19 +125,19 @@ async function getData() {
 
       let td2 = document.createElement("td");
       td2.classList.add("p-2", "font-bold");
-      td2.innerHTML = parseInt(data[i].priceUsd).toFixed(2);
+      td2.innerHTML = parseFloat(data[i].priceUsd).toFixed(2);
 
       let td3 = document.createElement("td");
-      if (parseInt(data[i].changePercent24Hr) < 0) {
+      if (parseFloat(data[i].changePercent24Hr) < 0) {
         td3.classList.add("p-2", "font-bold", "text-red-500");
         td3.innerHTML =
           '<i class="fa-solid fa-arrow-down animate-bounce"></i> ' +
-          Math.abs(parseInt(data[i].changePercent24Hr)).toFixed(2);
+          Math.abs(parseFloat(data[i].changePercent24Hr)).toFixed(2);
       } else {
         td3.classList.add("p-2", "font-bold", "text-green-500");
         td3.innerHTML =
           '<i class="fa-solid fa-arrow-up animate-bounce"></i> ' +
-          Math.abs(parseInt(data[i].changePercent24Hr)).toFixed(2);
+          Math.abs(parseFloat(data[i].changePercent24Hr)).toFixed(2);
       }
 
       let tr = document.createElement("tr");
