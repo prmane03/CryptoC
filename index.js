@@ -20,7 +20,7 @@ async function getData() {
     var allLi = document.getElementById("allList");
     var gainerLi = document.getElementById("gainerList");
     var loserLi = document.getElementById("loserList");
-    var updatedAt = document.getElementById("updatedAt");
+    var updatedAts = document.querySelectorAll(".updatedAt");
     var date = "";
     let res = await fetch("https://api.coincap.io/v2/assets");
     var result = await res.json();
@@ -29,8 +29,10 @@ async function getData() {
     data = result["data"];
 
     date = new Date(result["timestamp"]);
-    updatedAt.innerHTML = "";
-    updatedAt.innerHTML = date;
+    updatedAts.forEach((updatedAt) => {
+      updatedAt.innerHTML = "";
+      updatedAt.innerHTML = date;
+    })
 
     allLi.innerHTML = "";
     for (let i = 0; i < 15; i++) {
