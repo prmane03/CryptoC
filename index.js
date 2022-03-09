@@ -1,3 +1,14 @@
+//menu
+function toggleMenu(el){
+  var menu = document.getElementById(el.dataset.collapse)
+  if (menu.classList.contains('hidden')) {
+    menu.classList.remove('hidden')
+  } else {
+    menu.classList.add('hidden')
+  }
+}
+
+
 // Tabs
 function switchTab(evt, tcid) {
   // Get all elements with class="tabcontent" and hide them
